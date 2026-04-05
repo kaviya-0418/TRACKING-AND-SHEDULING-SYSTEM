@@ -1,0 +1,80 @@
+#include <iostream>
+using namespace std;
+
+struct Task {
+    string name;
+    string date;
+};
+
+Task tasks[100];
+int countTask = 0;
+
+// Add Task
+void addTask() {
+    cout << "Enter Task Name: ";
+    cin >> tasks[countTask].name;
+
+    cout << "Enter Date (DD/MM/YYYY): ";
+    cin >> tasks[countTask].date;
+
+    countTask++;
+    cout << "Task Added Successfully!\n";
+}
+
+// View Tasks
+void viewTasks() {
+    if (countTask == 0) {
+        cout << "No tasks available!\n";
+        return;
+    }
+
+    cout << "\n--- Task List ---\n";
+    for (int i = 0; i < countTask; i++) {
+        cout << i + 1 << ". " << tasks[i].name 
+             << " - " << tasks[i].date << endl;
+    }
+}
+
+// Delete Task
+void deleteTask() {
+    int num;
+    cout << "Enter task number to delete: ";
+    cin >> num;
+
+    if (num > countTask || num <= 0) {
+        cout << "Invalid Task Number!\n";
+        return;
+    }
+
+    for (int i = num - 1; i < countTask - 1; i++) {
+        tasks[i] = tasks[i + 1];
+    }
+
+    countTask--;
+    cout << "Task Deleted Successfully!\n";
+}
+
+int main() {
+    int choice;
+
+    do {
+        cout << "\n--- Tracking & Scheduling System ---\n";
+        cout << "1. Add Task\n";
+        cout << "2. View Tasks\n";
+        cout << "3. Delete Task\n";
+        cout << "4. Exit\n";
+        cout << "Enter your choice: ";
+        cin >> choice;
+
+        switch (choice) {
+            case 1: addTask(); break;
+            case 2: viewTasks(); break;
+            case 3: deleteTask(); break;
+            case 4: cout << "Exiting...\n"; break;
+            default: cout << "Invalid choice!\n";
+        }
+
+    } while (choice != 4);
+
+    return 0;
+}
